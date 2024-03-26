@@ -1,0 +1,17 @@
+{
+  "name": "wiki-feats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:frontend": "cd frontend && pnpm install",
+    "install:backend": "cd backend && pnpm install",
+    "install": "pnpm run install:frontend && pnpm run install:backend",
+    "start": "pnpm run start:frontend & pnpm run start:backend",
+    "start:frontend": "cd frontend && pnpm run dev",
+    "start:backend": "cd backend && pnpm run start:dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
