@@ -6,7 +6,7 @@ WikiFeats is a web app delivering Wikipedia's Featured Content.
 
 - Common
   - Typescript
-  - PNPM
+  - NodeJS + PNPM
 
 - Front-End
   - React.js
