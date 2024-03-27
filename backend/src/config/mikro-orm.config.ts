@@ -1,7 +1,8 @@
-import { Options, PostgreSqlDriver } from "@mikro-orm/postgresql";
+import { Migrator } from "@mikro-orm/migrations";
+import { defineConfig, Options, PostgreSqlDriver } from "@mikro-orm/postgresql";
 import "dotenv/config";
 
-export const config: Options = {
+export const config: Options = defineConfig({
   driver: PostgreSqlDriver,
 
   host: process.env.DATABASE_HOST,
@@ -13,4 +14,14 @@ export const config: Options = {
 
   entities: ["dist/**/*.entity.js"],
   entitiesTs: ["src/**/*.entity.ts"],
-};
+
+  extensions: [Migrator],
+
+  migrations: {
+    path: "dist/database/migrations",
+    pathTs: "src/database/migrations",
+    fileName: (timestamp: string, name: string) => `${timestamp}-${name}`,
+  },
+});
+
+export default config;
