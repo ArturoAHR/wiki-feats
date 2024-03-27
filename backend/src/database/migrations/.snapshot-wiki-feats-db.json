@@ -198,7 +198,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": false,
+          "nullable": true,
           "mappedType": "uuid"
         }
       },
@@ -238,6 +238,7 @@
             "id"
           ],
           "referencedTableName": "public.thumbnails",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       },

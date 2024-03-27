@@ -27,6 +27,8 @@ export class Article extends BaseEntity {
     joinColumn: "thumbnail_id",
     owner: true,
     orphanRemoval: true,
+    eager: true,
+    nullable: true,
   })
   thumbnail: Thumbnail;
 }
