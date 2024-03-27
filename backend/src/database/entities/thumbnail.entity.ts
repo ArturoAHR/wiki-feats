@@ -3,7 +3,7 @@ import { BaseEntity } from "../../common/database/base.entity";
 
 @Entity({ tableName: "thumbnails" })
 export class Thumbnail extends BaseEntity {
-  @Property()
+  @Property({ type: "text" })
   url: string;
 
   @Property()

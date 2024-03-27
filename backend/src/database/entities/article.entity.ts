@@ -8,17 +8,17 @@ export class Article extends BaseEntity {
   @Property()
   title: string;
 
-  @Property()
+  @Property({ type: "text" })
   extract: string;
 
-  @Property({ name: "article_url" })
+  @Property({ name: "article_url", type: "text" })
   articleUrl: string;
 
   @Enum({ name: "article_type", items: () => ArticleType })
   articleType: string;
 
   @Property({ name: "wikipedia_page_id" })
-  wikipediaPageId: string;
+  wikipediaPageId: number;
 
   @Property({ name: "featured_date", type: "date" })
   featuredDate: Date;
