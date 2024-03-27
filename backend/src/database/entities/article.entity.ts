@@ -1,6 +1,6 @@
 import { Entity, Enum, OneToOne, Property } from "@mikro-orm/core";
+import { ArticleType } from "../../common/@types/enum/article-type.enum";
 import { BaseEntity } from "../../common/database/base.entity";
-import { ArticleType } from "../../common/enum/article-type.enum";
 import { Thumbnail } from "./thumbnail.entity";
 
 @Entity({ tableName: "articles" })
