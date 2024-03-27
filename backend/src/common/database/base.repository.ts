@@ -16,11 +16,14 @@ export class BaseRepository<T extends BaseEntity> extends EntityRepository<T> {
     conditions: FilterQuery<T> = {},
     options: Omit<FindOptions<T>, "fields"> = {},
   ): Promise<PaginatedFindResult<T>> {
-    const [items, total] = await this.findAndCount(conditions, {
-      ...options,
-      limit: pageSize,
-      offset: (page - 1) * pageSize,
-    });
+    const [items, total] = await this.findAndCount(
+      { deletedAt: { $exists: false }, ...conditions } as FilterQuery<T>,
+      {
+        ...options,
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+      },
+    );
 
     return {
       items,
