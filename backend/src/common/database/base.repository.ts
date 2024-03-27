@@ -1,5 +1,5 @@
 import { EntityManager, EntityRepository } from "@mikro-orm/postgresql";
-import { BaseEntity } from "../entities/base.entity";
+import { BaseEntity } from "./base.entity";
 
 export class BaseRepository<T extends BaseEntity> extends EntityRepository<T> {
   softRemove(entity: T): EntityManager {
