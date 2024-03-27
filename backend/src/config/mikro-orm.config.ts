@@ -1,6 +1,7 @@
 import { Migrator } from "@mikro-orm/migrations";
 import { defineConfig, Options, PostgreSqlDriver } from "@mikro-orm/postgresql";
 import "dotenv/config";
+import { BaseRepository } from "../common/database/base.repository";
 
 export const config: Options = defineConfig({
   driver: PostgreSqlDriver,
@@ -22,6 +23,8 @@ export const config: Options = defineConfig({
     pathTs: "src/database/migrations",
     fileName: (timestamp: string, name: string) => `${timestamp}-${name}`,
   },
+
+  entityRepository: BaseRepository,
 });
 
 export default config;
