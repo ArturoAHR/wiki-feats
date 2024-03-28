@@ -15,7 +15,7 @@ export class Article extends BaseEntity {
   articleUrl: string;
 
   @Enum({ name: "article_type", items: () => ArticleType })
-  articleType: string;
+  articleType: ArticleType;
 
   @Property({ name: "wikipedia_page_id" })
   wikipediaPageId: number;
