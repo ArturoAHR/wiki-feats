@@ -53,4 +53,13 @@ export class ArticleService {
       },
     );
   }
+
+  async areDateArticlesImported(date: string) {
+    const articleCount = await this.articleRepository.count({
+      featuredDate: new Date(date),
+      deletedAt: { $exists: false },
+    });
+
+    return articleCount > 0;
+  }
 }
