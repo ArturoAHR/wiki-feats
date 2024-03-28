@@ -45,6 +45,16 @@ export class WikipediaService {
       });
     }
 
+    if (response.data.news) {
+      response.data.news.forEach((news) => {
+        articles.push({
+          ...news.links[0],
+          articleType: ArticleType.News,
+          story: news.story,
+        });
+      });
+    }
+
     return articles;
   }
 }
