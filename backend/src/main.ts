@@ -21,6 +21,6 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }));
 
-  await app.listen(3000);
+  await app.listen(configService.get("PORT"));
 }
 bootstrap();
