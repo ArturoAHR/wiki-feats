@@ -6,10 +6,12 @@ export const createArticleMock = (): Article => ({
   id: faker.string.uuid(),
   title: faker.lorem.words(),
   extract: faker.lorem.paragraph(),
+  extractHtml: faker.lorem.paragraph(),
+  context: faker.lorem.paragraph(),
   articleUrl: faker.internet.url(),
   articleType: faker.helpers.arrayElement(Object.values(ArticleType)),
   wikipediaPageId: faker.number.int({ min: 1, max: 1000 }),
-  featuredDate: faker.date.recent(),
+  articleCollection: null,
   thumbnail: {
     id: faker.string.uuid(),
     url: faker.internet.url(),
