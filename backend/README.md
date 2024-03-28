@@ -2,11 +2,27 @@
 
 Proxy API to consume and provide content from the Wikipedia Featured Content API powered by NestJS.
 
-## Installation
+## Getting Started
+
+First install the dependencies:
 
 ```bash
 $ pnpm install
 ```
+
+Afterwards copy the .env.sample into an .env file and fill out your own environment values.
+
+```bash
+$ cp .env.sample .env
+```
+
+Run the app in watch mode with:
+
+``` bash
+$ pnpm run start:dev
+```
+
+The API documentation should be running in `http://localhost:{PORT}/api`.
 
 ## Running the app
 
