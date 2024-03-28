@@ -1,6 +1,7 @@
-import { Entity, Enum, OneToOne, Property } from "@mikro-orm/core";
+import { Entity, Enum, ManyToOne, OneToOne, Property } from "@mikro-orm/core";
 import { ArticleType } from "../../common/@types/enum/article-type.enum";
 import { BaseEntity } from "../../common/database/base.entity";
+import { ArticleCollection } from "./article-collection.entity";
 import { Thumbnail } from "./thumbnail.entity";
 
 @Entity({ tableName: "articles" })
@@ -20,9 +21,6 @@ export class Article extends BaseEntity {
   @Property({ name: "wikipedia_page_id" })
   wikipediaPageId: number;
 
-  @Property({ name: "featured_date", type: "date" })
-  featuredDate: Date;
-
   @OneToOne({
     joinColumn: "thumbnail_id",
     owner: true,
@@ -31,4 +29,7 @@ export class Article extends BaseEntity {
     nullable: true,
   })
   thumbnail: Thumbnail;
+
+  @ManyToOne({ entity: () => ArticleCollection, joinColumn: "collection_id" })
+  collection: ArticleCollection;
 }
