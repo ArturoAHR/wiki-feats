@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { getIsoDate } from "../common/helpers/iso-date.utils";
 import {
   WikipediaApiResponse,
   WikipediaApiResponseArticle,
@@ -58,7 +59,7 @@ export const createWikipediaApiResponseMock = (): WikipediaApiResponse => {
   return {
     tfa: createWikipediaApiResponseArticleMock(),
     mostread: {
-      date: faker.date.recent().toISOString(),
+      date: getIsoDate(faker.date.recent()),
       articles: [createWikipediaApiResponseArticleMock()],
     },
     image: {} as WikipediaApiResponseFeaturedImage,

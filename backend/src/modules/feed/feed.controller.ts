@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Query } from "@nestjs/common";
 import { startOfToday } from "date-fns";
+import { getIsoDate } from "../../common/helpers/iso-date.utils";
 import { GetFeedParamsDto } from "./dto/get-feed.param.dto";
 import { GetFeedQueryDto } from "./dto/get-feed.query.dto";
 import { GetFeedResponseDto } from "./dto/get-feed.response.dto";
@@ -13,7 +14,7 @@ export class FeedController {
   async getCurrentFeed(
     @Query() query: GetFeedQueryDto,
   ): Promise<GetFeedResponseDto> {
-    const today = startOfToday().toISOString().split("T")[0];
+    const today = getIsoDate(startOfToday());
 
     const options = {
       page: query?.page,

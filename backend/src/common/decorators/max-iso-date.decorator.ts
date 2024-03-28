@@ -1,4 +1,5 @@
 import { registerDecorator, ValidationOptions } from "class-validator";
+import { getIsoDate } from "../helpers/iso-date.utils";
 
 export function MaxIsoDate(
   getMaxDate: () => Date,
@@ -12,7 +13,7 @@ export function MaxIsoDate(
       options: validationOptions,
       validator: {
         validate(value: any) {
-          const maxDate = getMaxDate().toISOString().split("T")[0];
+          const maxDate = getIsoDate(getMaxDate());
 
           return value <= maxDate;
         },
