@@ -3,6 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { AxiosResponse } from "axios";
 import { firstValueFrom } from "rxjs";
 import { ArticleType } from "../../common/@types/enum/article-type.enum";
+import { WIKIPEDIA_API_URL } from "../../common/constants/url.contants";
 import { WikipediaApiResponse } from "./types/wikipedia-api-response.types";
 import { WikipediaArticle } from "./types/wikipedia-article.types";
 
@@ -14,9 +15,7 @@ export class WikipediaService {
     const uriDate = date.split("-").join("/");
 
     const response: AxiosResponse<WikipediaApiResponse> = await firstValueFrom(
-      this.httpService.get(
-        `https://api.wikimedia.org/feed/v1/wikipedia/en/featured/${uriDate}`,
-      ),
+      this.httpService.get(`${WIKIPEDIA_API_URL}${uriDate}`),
     );
 
     if (response.status !== 200) {
