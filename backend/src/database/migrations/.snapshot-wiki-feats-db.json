@@ -337,6 +337,24 @@
           "nullable": false,
           "mappedType": "text"
         },
+        "extract_html": {
+          "name": "extract_html",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "context": {
+          "name": "context",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
         "article_url": {
           "name": "article_url",
           "type": "text",

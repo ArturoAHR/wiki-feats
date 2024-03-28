@@ -12,6 +12,12 @@ export class Article extends BaseEntity {
   @Property({ type: "text" })
   extract: string;
 
+  @Property({ name: "extract_html", type: "text" })
+  extractHtml: string;
+
+  @Property({ type: "text" })
+  context: string;
+
   @Property({ name: "article_url", type: "text" })
   articleUrl: string;
 
