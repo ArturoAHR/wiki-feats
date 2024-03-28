@@ -3,7 +3,7 @@ import { defineConfig, Options, PostgreSqlDriver } from "@mikro-orm/postgresql";
 import "dotenv/config";
 import { BaseRepository } from "../common/database/base.repository";
 
-export const config: Options = defineConfig({
+export const mikroOrmConfig: Options = defineConfig({
   driver: PostgreSqlDriver,
 
   host: process.env.DATABASE_HOST,
@@ -27,4 +27,4 @@ export const config: Options = defineConfig({
   entityRepository: BaseRepository,
 });
 
-export default config;
+export default mikroOrmConfig;
