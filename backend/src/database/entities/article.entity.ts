@@ -15,8 +15,8 @@ export class Article extends BaseEntity {
   @Property({ name: "extract_html", type: "text" })
   extractHtml: string;
 
-  @Property({ type: "text" })
-  context: string;
+  @Property({ type: "text", nullable: true })
+  context?: string;
 
   @Property({ name: "article_url", type: "text" })
   articleUrl: string;
@@ -37,5 +37,5 @@ export class Article extends BaseEntity {
   thumbnail: Thumbnail;
 
   @ManyToOne({ entity: () => ArticleCollection, joinColumn: "collection_id" })
-  collection: ArticleCollection;
+  articleCollection: ArticleCollection;
 }

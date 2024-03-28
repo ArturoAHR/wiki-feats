@@ -17,7 +17,7 @@ export class ArticleCollection extends BaseEntity {
   @ManyToOne({ entity: () => Language, joinColumn: "language_id", eager: true })
   language: Language;
 
-  @OneToMany(() => Article, (article) => article.collection, {
+  @OneToMany(() => Article, (article) => article.articleCollection, {
     orphanRemoval: true,
     eager: false,
   })
