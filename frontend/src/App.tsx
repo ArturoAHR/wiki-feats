@@ -1,9 +1,11 @@
-function App() {
+import { Providers } from "./providers";
+import { Router } from "./Router";
 
+function App() {
   return (
-    <>
-      
-    </>
+    <Providers>
+      <Router />
+    </Providers>
   );
 }
 
