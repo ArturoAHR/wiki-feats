@@ -149,6 +149,7 @@ export class ArticleService {
       (article) => article.wikipediaPageId,
     );
 
+    // We fork here to avoid returning article collections with its articles
     const forkedEntityManager = this.entityManager.fork();
     const forkedArticleRepository = forkedEntityManager.getRepository(Article);
 
