@@ -158,7 +158,7 @@ export class TranslateService {
 
     const htmlToTranslate = articles.reduce(
       (accumulatedHtmlToTranslate, article) => {
-        if (article.articleType === ArticleType.News) {
+        if (article.articleType === ArticleType.OnThisDay) {
           return [...accumulatedHtmlToTranslate, article.extractHtml, ""];
         }
 
@@ -196,6 +196,10 @@ export class TranslateService {
       const [title, extract, context] = translatedTexts.splice(0, 3);
       const [extractHtml, contextHtml] = translatedHtml.splice(0, 2);
 
+      let articleContext = context || contextHtml;
+
+      if (articleContext.length === 0) articleContext = null;
+
       translatedArticles.push({
         articleType: article.articleType,
         articleUrl: article.articleUrl,
@@ -204,7 +208,7 @@ export class TranslateService {
         title,
         extract,
         extractHtml,
-        context: context ?? contextHtml ?? null,
+        context: articleContext,
       });
     });
 
