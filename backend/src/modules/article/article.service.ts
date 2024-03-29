@@ -7,7 +7,8 @@ import { ArticleCollection } from "../../database/entities/article-collection.en
 import { Article } from "../../database/entities/article.entity";
 import { Language } from "../../database/entities/language.entity";
 import { WikipediaService } from "../wikipedia/wikipedia.service";
-import { GetArticlesByDateOptions } from "./types/get-articles-by-date-options.types";
+import { ArticleCollectionStatus } from "./enum/article-collection-status.enum";
+import { GetArticleOptions } from "./types/get-article-options.types";
 
 @Injectable()
 export class ArticleService {
@@ -22,7 +23,7 @@ export class ArticleService {
     private readonly wikipediaService: WikipediaService,
   ) {}
 
-  async importArticles(date: string) {
+  async importArticles({ date }: GetArticleOptions) {
     const articles = await this.wikipediaService.fetchFeaturedContents(date);
 
     const englishLanguage = await this.languageRepository.findOneOrFail({
@@ -59,32 +60,63 @@ export class ArticleService {
     await this.articleRepository.getEntityManager().flush();
   }
 
-  async getArticlesByDate(
-    date: string,
-    options?: GetArticlesByDateOptions,
-  ): Promise<PaginatedFindResult<Article>> {
+  async getArticlesByDate({
+    date,
+    languageCode,
+    page,
+    pageSize,
+  }: GetArticleOptions): Promise<PaginatedFindResult<Article>> {
     const articleCollection = await this.articleCollectionRepository.findOne({
+      language: { code: languageCode },
       featuredDate: new Date(date),
       deletedAt: { $exists: false },
     });
 
     const articles = await this.articleRepository.findPaginated(
-      { page: options?.page ?? 1, pageSize: options?.pageSize ?? 5 },
+      { page, pageSize },
       { articleCollection, deletedAt: { $exists: false } },
-      { orderBy: { articleType: QueryOrder.ASC } },
+      {
+        orderBy: {
+          articleType: QueryOrder.ASC,
+          wikipediaPageId: QueryOrder.ASC,
+        },
+      },
     );
 
     return articles;
   }
 
-  async areDateArticlesImported(date: string) {
+  async getArticleCollectionStatus({
+    date,
+    page,
+    pageSize,
+    languageCode,
+  }: GetArticleOptions): Promise<ArticleCollectionStatus> {
     const articleCollection = await this.articleCollectionRepository.findOne({
+      language: { code: languageCode ?? "en" },
       featuredDate: new Date(date),
       deletedAt: { $exists: false },
     });
 
-    return Boolean(
-      articleCollection && articleCollection.availableArticles !== 0,
-    );
+    // Non-imported article collections don't exist in the database and collections that require
+    // translation have partial article collection availability.
+    const doesArticleCollectionExist = Boolean(articleCollection);
+    const isLanguageCodeEnglish = languageCode === "en";
+    const arePageArticlesUnavailable =
+      articleCollection?.availableArticles - (page - 1) * pageSize < 0;
+
+    if (!doesArticleCollectionExist && isLanguageCodeEnglish) {
+      return ArticleCollectionStatus.ImportingRequired;
+    }
+
+    if (!doesArticleCollectionExist) {
+      return ArticleCollectionStatus.ImportingAndTranslationRequired;
+    }
+
+    if (arePageArticlesUnavailable) {
+      return ArticleCollectionStatus.TranslationRequired;
+    }
+
+    return ArticleCollectionStatus.HasAllArticles;
   }
 }

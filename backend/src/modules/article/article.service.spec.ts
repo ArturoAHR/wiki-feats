@@ -104,7 +104,7 @@ describe("ArticleService", () => {
       mockArticleCollection,
     );
 
-    const result = await service.areDateArticlesImported("2021-09-01");
+    const result = await service.getArticleCollectionStatus("2021-09-01");
 
     expect(result).toBe(true);
     expect(mockArticleCollectionRepository.findOne).toHaveBeenCalled();
@@ -118,7 +118,7 @@ describe("ArticleService", () => {
       mockArticleCollection,
     );
 
-    const result = await service.areDateArticlesImported("2021-09-01");
+    const result = await service.getArticleCollectionStatus("2021-09-01");
 
     expect(result).toBe(false);
     expect(mockArticleCollectionRepository.findOne).toHaveBeenCalled();
@@ -127,7 +127,7 @@ describe("ArticleService", () => {
   it("should resolve to false if the article collection with the feature date provided does not exist", async () => {
     mockArticleCollectionRepository.findOne.mockResolvedValue(undefined);
 
-    const result = await service.areDateArticlesImported("2021-09-01");
+    const result = await service.getArticleCollectionStatus("2021-09-01");
 
     expect(result).toBe(false);
     expect(mockArticleCollectionRepository.findOne).toHaveBeenCalled();

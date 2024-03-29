@@ -8,7 +8,7 @@ import { FeedService } from "./feed.service";
 describe("FeedService", () => {
   let service: FeedService;
   const mockArticleService = createMock<ArticleService>({
-    areDateArticlesImported: jest.fn(),
+    getArticleCollectionStatus: jest.fn(),
     getArticlesByDate: jest.fn(),
     importArticles: jest.fn(),
   });
@@ -32,26 +32,26 @@ describe("FeedService", () => {
   });
 
   it("should get feed articles if they are already imported", async () => {
-    mockArticleService.areDateArticlesImported.mockResolvedValue(true);
+    mockArticleService.getArticleCollectionStatus.mockResolvedValue(true);
     mockArticleService.getArticlesByDate.mockResolvedValue(paginatedArticles);
 
     const result = await service.getFeedArticles("2021-09-01");
 
     expect(result).toEqual(paginatedArticles);
 
-    expect(mockArticleService.areDateArticlesImported).toHaveBeenCalled();
+    expect(mockArticleService.getArticleCollectionStatus).toHaveBeenCalled();
     expect(mockArticleService.getArticlesByDate).toHaveBeenCalled();
   });
 
   it("should import articles if they are not imported", async () => {
-    mockArticleService.areDateArticlesImported.mockResolvedValue(false);
+    mockArticleService.getArticleCollectionStatus.mockResolvedValue(false);
     mockArticleService.getArticlesByDate.mockResolvedValue(paginatedArticles);
 
     const result = await service.getFeedArticles("2021-09-01");
 
     expect(result).toEqual(paginatedArticles);
 
-    expect(mockArticleService.areDateArticlesImported).toHaveBeenCalled();
+    expect(mockArticleService.getArticleCollectionStatus).toHaveBeenCalled();
     expect(mockArticleService.importArticles).toHaveBeenCalled();
     expect(mockArticleService.getArticlesByDate).toHaveBeenCalled();
   });

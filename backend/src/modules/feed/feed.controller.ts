@@ -1,7 +1,5 @@
 import { Controller, Get, Param, Query } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { startOfToday } from "date-fns";
-import { getIsoDate } from "../../common/helpers/iso-date.utils";
 import { GetFeedParamsDto } from "./dto/get-feed.param.dto";
 import { GetFeedQueryDto } from "./dto/get-feed.query.dto";
 import { GetFeedResponseDto } from "./dto/get-feed.response.dto";
@@ -18,14 +16,9 @@ export class FeedController {
   async getCurrentFeed(
     @Query() query: GetFeedQueryDto,
   ): Promise<GetFeedResponseDto> {
-    const today = getIsoDate(startOfToday());
-
-    const options = {
-      page: query?.page,
-      pageSize: query?.pageSize,
-    };
-
-    return await this.feedService.getFeedArticles(today, options);
+    return await this.feedService.getFeedArticles({
+      ...query,
+    });
   }
 
   @Get("/:date")
@@ -37,11 +30,9 @@ export class FeedController {
   ): Promise<GetFeedResponseDto> {
     const { date } = params;
 
-    const options = {
-      page: query?.page,
-      pageSize: query?.pageSize,
-    };
-
-    return await this.feedService.getFeedArticles(date, options);
+    return await this.feedService.getFeedArticles({
+      date,
+      ...query,
+    });
   }
 }
