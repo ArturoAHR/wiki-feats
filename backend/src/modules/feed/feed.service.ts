@@ -46,7 +46,7 @@ export class FeedService {
       await this.articleService.translateArticles(options);
     }
 
-    if (languageCode !== "en") {
+    if (options?.languageCode !== "en") {
       return await this.articleService.getTranslatedArticlesByDate(options);
     }
 
