@@ -4,6 +4,7 @@ import { useSanitizeHtml } from "../../hooks/useSanitizeHtml";
 import { Article } from "../../types/article";
 import WikipediaIcon from "./../../assets/wikipedia-icon.jpg";
 
+import { ImageWithFallback } from "../image-with-fallback/ImageWithFallback";
 import "./ArticleCard.css";
 
 export type ArticleCardProps = {
@@ -25,14 +26,11 @@ export const ArticleCard = ({
 
   return (
     <Card className={cardClassName} key={article.id}>
-      <img
-        className="article-card-image"
-        src={article?.thumbnail?.url ?? WikipediaIcon}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null;
-          currentTarget.src = WikipediaIcon;
-        }}
+      <ImageWithFallback
+        src={article?.thumbnail?.url}
         alt={article.title}
+        fallback={WikipediaIcon}
+        className="article-card-image"
       />
       <div className="article-card-separator"></div>
       <div className="article-card-title">{article.title}</div>
