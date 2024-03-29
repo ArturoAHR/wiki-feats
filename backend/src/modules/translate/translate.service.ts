@@ -119,6 +119,14 @@ export class TranslateService {
     return response.data.translatedText;
   }
 
+  async checkIfTranslationLanguageIsSupported(languageCode: string) {
+    const languageCount = await this.languageRepository.count({
+      code: languageCode,
+    });
+
+    return languageCount > 0;
+  }
+
   async translateArticles({
     articles,
     targetLanguageCode,
