@@ -17,7 +17,7 @@ export const ArticleFeed = ({
   languageCode,
   className,
 }: ArticleFeedProps) => {
-  const [pagination, setPagination] = useState({ page: 9, pageSize: 5 });
+  const [pagination, setPagination] = useState({ page: 1, pageSize: 5 });
 
   const { useGetFeedQuery } = useFeed();
   const { data, isLoading } = useGetFeedQuery({
@@ -27,10 +27,10 @@ export const ArticleFeed = ({
   });
 
   const handlePageChange = (page: number) =>
-    setPagination({ ...pagination, page });
+    setPagination((previousPagination) => ({ ...previousPagination, page }));
 
-  const handlePageSizeChange = (_page: number, pageSize: number) => {
-    setPagination({ page: 1, pageSize });
+  const handlePageSizeChange = (page: number, pageSize: number) => {
+    setPagination({ page, pageSize });
   };
 
   const containerClass = classNames("article-feed", className);
@@ -42,13 +42,15 @@ export const ArticleFeed = ({
       </div>
       <Pagination
         className="article-feed-pagination"
+        showSizeChanger
         simple
+        current={pagination.page}
+        pageSize={pagination.pageSize}
+        defaultPageSize={5}
+        pageSizeOptions={[5, 15, 30]}
         total={data?.meta.total ?? 0}
         onChange={handlePageChange}
-        showSizeChanger
         onShowSizeChange={handlePageSizeChange}
-        pageSizeOptions={[5, 10, 20]}
-        defaultPageSize={5}
         disabled={isLoading}
       />
     </div>
