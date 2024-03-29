@@ -2,6 +2,7 @@ import { Card } from "antd";
 import classNames from "classnames";
 import { useSanitizeHtml } from "../../../utility/hooks/useSanitizeHtml";
 import { Article } from "../../types/article";
+import WikipediaIcon from "./../../../../assets/wikipedia-icon.jpg";
 
 import "./ArticleCard.css";
 
@@ -26,7 +27,11 @@ export const ArticleCard = ({
     <Card className={cardClassName} key={article.id}>
       <img
         className="article-card-image"
-        src={article?.thumbnail?.url ?? ""}
+        src={article?.thumbnail?.url ?? WikipediaIcon}
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null;
+          currentTarget.src = WikipediaIcon;
+        }}
         alt={article.title}
       />
       <div className="article-card-separator"></div>
