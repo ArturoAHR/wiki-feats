@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { startOfToday } from "date-fns";
 import { getIsoDate } from "../../common/helpers/iso-date.utils";
 import { ArticleService } from "../article/article.service";
-import { ArticleCollectionStatus } from "../article/enum/article-collection-status.enum";
 import { GetFeedArticleOptions } from "./types/get-feed-articles-options.types";
 
 @Injectable()
@@ -22,30 +21,23 @@ export class FeedService {
       languageCode: languageCode ?? "en",
     };
 
-    const articleCollectionStatus =
-      await this.articleService.getArticleCollectionStatus(options);
+    const areArticlesImported =
+      await this.articleService.checkIfArticlesAreImported(options);
+    const areArticlesTranslated =
+      await this.articleService.checkIfArticlesAreTranslated(options);
 
-    if (articleCollectionStatus === ArticleCollectionStatus.HasAllArticles) {
-      return await this.articleService.getArticlesByDate(options);
-    }
-
-    if (
-      [
-        ArticleCollectionStatus.ImportingRequired,
-        ArticleCollectionStatus.ImportingAndTranslationRequired,
-      ].includes(articleCollectionStatus)
-    ) {
+    if (!areArticlesImported) {
       await this.articleService.importArticles(options);
     }
 
-    if (
-      [
-        ArticleCollectionStatus.TranslationRequired,
-        ArticleCollectionStatus.ImportingAndTranslationRequired,
-      ].includes(articleCollectionStatus)
-    ) {
-      // this.articleService.translateArticles(options);
+    if (!areArticlesTranslated) {
+      await this.articleService.translateArticles(options);
     }
-    return await this.articleService.getArticlesByDate(options);
+
+    if (languageCode !== "en") {
+      return await this.articleService.getTranslatedArticlesByDate(options);
+    }
+
+    return await this.articleService.getImportedArticlesByDate(options);
   }
 }

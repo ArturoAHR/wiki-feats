@@ -1,14 +1,14 @@
 export type GetAvailableLanguagesResponse = AvailableTranslation[];
 
 export type GetTranslatedTextRequest = {
-  q: string;
+  q: string[];
   source: string;
   target: string;
   format: "text" | "html";
 };
 
 export type GetTranslatedTextResponse = {
-  translatedText: string;
+  translatedText: string[];
 };
 
 export type AvailableTranslation = {
