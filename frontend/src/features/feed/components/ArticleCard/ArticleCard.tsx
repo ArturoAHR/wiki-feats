@@ -22,7 +22,11 @@ export const ArticleCard = ({
 
   return (
     <Card className={cardClassName} key={article.id}>
-      <img src={article?.thumbnail?.url ?? ""} alt={article.title} />
+      <img
+        className="article-card-image"
+        src={article?.thumbnail?.url ?? ""}
+        alt={article.title}
+      />
       <div className="article-card-title">{article.title}</div>
       <div
         className="article-card-extract"

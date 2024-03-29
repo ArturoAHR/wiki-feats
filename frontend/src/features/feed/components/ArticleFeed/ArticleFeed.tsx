@@ -18,18 +18,34 @@ export const ArticleFeed = ({
   const [pagination, setPagination] = useState({ page: 9, pageSize: 5 });
 
   const { useGetFeedQuery } = useFeed();
-  const { data } = useGetFeedQuery({
+  const { data, isLoading } = useGetFeedQuery({
     date,
     languageCode,
     ...pagination,
   });
+
+  const handlePageChange = (page: number) =>
+    setPagination({ ...pagination, page });
+
+  const handlePageSizeChange = (_page: number, pageSize: number) => {
+    setPagination({ page: 1, pageSize });
+  };
 
   const containerClass = classNames("article-feed", className);
 
   return (
     <div className={containerClass}>
       {data?.items.map((article) => <ArticleCard article={article} />)}
-      <Pagination />
+      <Pagination
+        simple
+        total={data?.meta.total ?? 0}
+        onChange={handlePageChange}
+        showSizeChanger
+        onShowSizeChange={handlePageSizeChange}
+        pageSizeOptions={[5, 10, 20]}
+        defaultPageSize={5}
+        disabled={isLoading}
+      />
     </div>
   );
 };
