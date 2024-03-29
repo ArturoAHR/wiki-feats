@@ -1,6 +1,7 @@
-import { Entity, Enum, OneToOne, Property } from "@mikro-orm/core";
+import { Entity, Enum, ManyToOne, Property } from "@mikro-orm/core";
 import { ArticleType } from "../../common/@types/enum/article-type.enum";
 import { BaseEntity } from "../../common/database/base.entity";
+import { ArticleCollection } from "./article-collection.entity";
 import { Thumbnail } from "./thumbnail.entity";
 
 @Entity({ tableName: "articles" })
@@ -11,6 +12,12 @@ export class Article extends BaseEntity {
   @Property({ type: "text" })
   extract: string;
 
+  @Property({ name: "extract_html", type: "text" })
+  extractHtml: string;
+
+  @Property({ type: "text", nullable: true })
+  context?: string;
+
   @Property({ name: "article_url", type: "text" })
   articleUrl: string;
 
@@ -20,15 +27,13 @@ export class Article extends BaseEntity {
   @Property({ name: "wikipedia_page_id" })
   wikipediaPageId: number;
 
-  @Property({ name: "featured_date", type: "date" })
-  featuredDate: Date;
-
-  @OneToOne({
+  @ManyToOne({
     joinColumn: "thumbnail_id",
-    owner: true,
-    orphanRemoval: true,
     eager: true,
     nullable: true,
   })
   thumbnail: Thumbnail;
+
+  @ManyToOne({ entity: () => ArticleCollection, joinColumn: "collection_id" })
+  articleCollection: ArticleCollection;
 }

@@ -3,7 +3,7 @@ import { IsISO8601 } from "class-validator";
 import { startOfToday } from "date-fns";
 import { MaxIsoDate } from "../../../common/decorators/max-iso-date.decorator";
 
-export class GetFeedParamsDto {
+export class GetFeedByDateParamsDto {
   @ApiProperty({
     type: "string",
     description: "Date in ISO8601 format without time",

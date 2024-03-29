@@ -1,5 +1,5 @@
 import { HttpService } from "@nestjs/axios";
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { AxiosResponse } from "axios";
 import { firstValueFrom } from "rxjs";
 import { ArticleType } from "../../common/@types/enum/article-type.enum";
@@ -13,13 +13,21 @@ export class WikipediaService {
 
   async fetchFeaturedContents(date: string): Promise<WikipediaArticle[]> {
     const uriDate = date.split("-").join("/");
-
-    const response: AxiosResponse<WikipediaApiResponse> = await firstValueFrom(
-      this.httpService.get(`${WIKIPEDIA_API_URL}${uriDate}`),
-    );
+    let response: AxiosResponse<WikipediaApiResponse>;
+    try {
+      response = await firstValueFrom(
+        this.httpService.get(`${WIKIPEDIA_API_URL}${uriDate}`),
+      );
+    } catch (e) {
+      throw new InternalServerErrorException(
+        `Failed to fetch data from Wikipedia API: ${e.message}`,
+      );
+    }
 
     if (response.status !== 200) {
-      throw new Error("Failed to fetch data from Wikipedia API");
+      throw new InternalServerErrorException(
+        "Failed to fetch data from Wikipedia API",
+      );
     }
 
     const articles: WikipediaArticle[] = [];
@@ -41,6 +49,16 @@ export class WikipediaService {
           ...onThisDay.pages[0],
           articleType: ArticleType.OnThisDay,
           text: onThisDay.text,
+        });
+      });
+    }
+
+    if (response.data.news) {
+      response.data.news.forEach((news) => {
+        articles.push({
+          ...news.links[0],
+          articleType: ArticleType.News,
+          story: news.story,
         });
       });
     }
