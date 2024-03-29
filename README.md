@@ -1,6 +1,6 @@
 # Wiki Feats
 
-WikiFeats is a web app delivering Wikipedia's Featured Content.
+WikiFeats is a web app that delivers Wikipedia's Featured Contents.
 
 ## Technical Stack
 
@@ -20,3 +20,8 @@ WikiFeats is a web app delivering Wikipedia's Featured Content.
   - PostgreSQL
   - Axios
   - NestJS Testing + Jest
+
+## Getting Started
+
+- [Back-End Documentation](backend/README.md)
+- [Front-End Documentation](frontend/README.md)
