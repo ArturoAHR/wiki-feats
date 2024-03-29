@@ -52,4 +52,8 @@ export class FeedService {
 
     return await this.articleService.getImportedArticlesByDate(options);
   }
+
+  async getSupportedFeedLanguages() {
+    return await this.translateService.getSupportedLanguages();
+  }
 }
