@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { useAxios } from "../../utility/hooks/useAxios";
-import { GetFeedArticlesParams } from "../types/article";
+import { PaginatedResponse } from "../../utility/types/pagination";
+import { Article, GetFeedArticlesParams } from "../types/article";
 
 export const useFeed = () => {
   const { axios } = useAxios();
@@ -16,7 +17,7 @@ export const useFeed = () => {
         "feed",
         `feed-${params.date}-${params.languageCode}-${params.page}-${params.pageSize}`,
       ],
-      async () => {
+      async (): Promise<PaginatedResponse<Article>> => {
         const response = await axios.get(
           `${URL}/${params.date}/translate/${params.languageCode}`,
           { params: { page: params.page, pageSize: params.pageSize } },
