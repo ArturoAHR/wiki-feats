@@ -20,12 +20,16 @@ export const ArticleCard = ({
 }: ArticleCardProps) => {
   const { sanitize } = useSanitizeHtml();
 
+  const handleClick = () => {
+    window.open(article.articleUrl, "_blank");
+  };
+
   const cardClassName = classNames("article-card", className, {
     "article-card-read": alreadyRead,
   });
 
   return (
-    <Card className={cardClassName} key={article.id}>
+    <Card className={cardClassName} key={article.id} onClick={handleClick}>
       <ImageWithFallback
         src={article?.thumbnail?.url}
         alt={article.title}
