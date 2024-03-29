@@ -1,0 +1,19 @@
+.feed-page-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feed-header {
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+
+}
+
+.feed-section-separator {
+  background-color: var(--primary);
+  width: 100%;
+  height: 2px;
+}

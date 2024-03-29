@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useFeed } from "../../api/useFeed";
 import { ArticleCard } from "../ArticleCard/ArticleCard";
 
+import "./ArticleFeed.css";
+
 export type ArticleFeedProps = {
   date: string;
   languageCode?: string;
@@ -35,8 +37,11 @@ export const ArticleFeed = ({
 
   return (
     <div className={containerClass}>
-      {data?.items.map((article) => <ArticleCard article={article} />)}
+      <div className="article-feed-articles">
+        {data?.items.map((article) => <ArticleCard article={article} />)}
+      </div>
       <Pagination
+        className="article-feed-pagination"
         simple
         total={data?.meta.total ?? 0}
         onChange={handlePageChange}

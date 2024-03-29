@@ -3,6 +3,8 @@ import classNames from "classnames";
 import { useSanitizeHtml } from "../../../utility/hooks/useSanitizeHtml";
 import { Article } from "../../types/article";
 
+import "./ArticleCard.css";
+
 export type ArticleCardProps = {
   article: Article;
   alreadyRead?: boolean;
@@ -27,17 +29,18 @@ export const ArticleCard = ({
         src={article?.thumbnail?.url ?? ""}
         alt={article.title}
       />
+      <div className="article-card-separator"></div>
       <div className="article-card-title">{article.title}</div>
-      <div
-        className="article-card-extract"
-        dangerouslySetInnerHTML={sanitize(article.extractHtml)}
-      ></div>
       {article?.context && (
         <div
           className="article-card-context"
           dangerouslySetInnerHTML={sanitize(article.context)}
         ></div>
       )}
+      <div
+        className="article-card-extract"
+        dangerouslySetInnerHTML={sanitize(article.extractHtml)}
+      ></div>
     </Card>
   );
 };
