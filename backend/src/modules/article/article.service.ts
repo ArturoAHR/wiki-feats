@@ -69,7 +69,7 @@ export class ArticleService {
     });
 
     const articles = await this.articleRepository.findPaginated(
-      { page: options?.page ?? 1, pageSize: options.pageSize ?? 5 },
+      { page: options?.page ?? 1, pageSize: options?.pageSize ?? 5 },
       { articleCollection, deletedAt: { $exists: false } },
       { orderBy: { articleType: QueryOrder.ASC } },
     );
@@ -83,6 +83,8 @@ export class ArticleService {
       deletedAt: { $exists: false },
     });
 
-    return articleCollection && articleCollection.availableArticles !== 0;
+    return Boolean(
+      articleCollection && articleCollection.availableArticles !== 0,
+    );
   }
 }

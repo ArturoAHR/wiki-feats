@@ -65,7 +65,8 @@ describe("WikipediaService", () => {
     const amountOfArticles =
       1 +
       mockWikipediaApiResponse.mostread.articles.length +
-      mockWikipediaApiResponse.onthisday.length;
+      mockWikipediaApiResponse.onthisday.length +
+      mockWikipediaApiResponse.news.length;
 
     mockHttpService.get.mockResolvedValue(mockAxiosResponse as never);
 
