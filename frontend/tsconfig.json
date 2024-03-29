@@ -21,8 +21,8 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Vitest */
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
   },
-  "include": ["src"],
+  "include": ["src", "setupTests.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
