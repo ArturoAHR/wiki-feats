@@ -7,11 +7,24 @@ body {
 }
 
 #root {
+  --primary: #8d6e63;
+  --secondary: #795548;
+  --auxiliar: #6d4c41;
+
+  --component-background: #efebe9;
+  --component-border: #d7ccc8;
+
+  --text-primary: #212121;
+  --text-secondary: #757575;
+
+  --contents-main-width: 1225px;
+  --mobile-width: 768px;
+
   font-family:  Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  color: rgba(22, 22, 22, 0.934);
+  color: var(--text-primary);
   background-color: #d7ccc8;
 
 
@@ -22,12 +35,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;  
-
-  --primary: #8d6e63;
-  --secondary: #795548;
-  --auxiliar: #6d4c41;
-
-  --component-background: #efebe9;
 }
 
 /* Scrollbar style */
