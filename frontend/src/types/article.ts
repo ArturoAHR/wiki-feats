@@ -1,5 +1,5 @@
-import { BaseEntity } from "../../utility/types/entity";
-import { PaginatedResponse, Pagination } from "../../utility/types/pagination";
+import { BaseEntity } from "./entity";
+import { PaginatedResponse, Pagination } from "./pagination";
 
 export type GetFeedArticlesParams = Partial<Pagination> & {
   date: string;

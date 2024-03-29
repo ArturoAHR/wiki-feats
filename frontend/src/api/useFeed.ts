@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import { useAxios } from "../../utility/hooks/useAxios";
-import { PaginatedResponse } from "../../utility/types/pagination";
+import { useAxios } from "../hooks/useAxios";
 import { Article, GetFeedArticlesParams } from "../types/article";
+import { PaginatedResponse } from "../types/pagination";
 
 export const useFeed = () => {
   const { axios } = useAxios();

@@ -1,9 +1,9 @@
 import { Pagination } from "antd";
 import classNames from "classnames";
 import { useState } from "react";
-import { useFeed } from "../../api/useFeed";
-import { ArticleCard } from "../ArticleCard/ArticleCard";
+import { ArticleCard } from "../article-card/ArticleCard";
 
+import { useFeed } from "../../api/useFeed";
 import "./ArticleFeed.css";
 
 export type ArticleFeedProps = {

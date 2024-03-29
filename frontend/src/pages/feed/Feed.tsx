@@ -1,4 +1,4 @@
-import { ArticleFeed } from "../../features/feed/components/ArticleFeed/ArticleFeed";
+import { ArticleFeed } from "../../components/article-feed/ArticleFeed";
 
 import "./Feed.css";
 

@@ -1,8 +1,8 @@
 import { Card } from "antd";
 import classNames from "classnames";
-import { useSanitizeHtml } from "../../../utility/hooks/useSanitizeHtml";
+import { useSanitizeHtml } from "../../hooks/useSanitizeHtml";
 import { Article } from "../../types/article";
-import WikipediaIcon from "./../../../../assets/wikipedia-icon.jpg";
+import WikipediaIcon from "./../../assets/wikipedia-icon.jpg";
 
 import "./ArticleCard.css";
 
