@@ -1,0 +1,55 @@
+html, body, #root {
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  font-family:  Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgba(22, 22, 22, 0.934);
+  background-color: #d7ccc8;
+
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;  
+
+  --primary: #8d6e63;
+  --secondary: #795548;
+  --auxiliar: #6d4c41;
+
+  --component-background: #efebe9;
+}
+
+/* Scrollbar style */
+/* Firefox Compatibility */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #595959 #fafafa;
+}
+
+/* General */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #595959;
+  border: 1px solid #fafafa;
+  border-radius: 6px;
+}
