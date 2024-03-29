@@ -1,4 +1,4 @@
-import { Entity, Enum, ManyToOne, OneToOne, Property } from "@mikro-orm/core";
+import { Entity, Enum, ManyToOne, Property } from "@mikro-orm/core";
 import { ArticleType } from "../../common/@types/enum/article-type.enum";
 import { BaseEntity } from "../../common/database/base.entity";
 import { ArticleCollection } from "./article-collection.entity";
@@ -27,10 +27,8 @@ export class Article extends BaseEntity {
   @Property({ name: "wikipedia_page_id" })
   wikipediaPageId: number;
 
-  @OneToOne({
+  @ManyToOne({
     joinColumn: "thumbnail_id",
-    owner: true,
-    orphanRemoval: true,
     eager: true,
     nullable: true,
   })

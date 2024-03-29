@@ -411,16 +411,6 @@
       "schema": "public",
       "indexes": [
         {
-          "columnNames": [
-            "thumbnail_id"
-          ],
-          "composite": false,
-          "keyName": "articles_thumbnail_id_unique",
-          "constraint": true,
-          "primary": false,
-          "unique": true
-        },
-        {
           "keyName": "articles_pkey",
           "columnNames": [
             "id"

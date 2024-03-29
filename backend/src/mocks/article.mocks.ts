@@ -20,6 +20,7 @@ export const createArticleMock = (): Article => ({
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent(),
     deletedAt: null,
+    articles: null,
   },
   createdAt: faker.date.past(),
   updatedAt: faker.date.recent(),
