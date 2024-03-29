@@ -129,6 +129,8 @@ export class ArticleService {
       });
     });
 
+    articleCollection.availableArticles += translatedArticles.length;
+
     await this.entityManager.flush();
   }
 
