@@ -16,6 +16,8 @@ async function bootstrap() {
     SwaggerModule.setup("api", app, document);
   }
 
+  app.enableCors();
+
   //Prevents MikroORM from staying connected after the process is terminated.
   app.enableShutdownHooks();
 
