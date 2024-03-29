@@ -20,7 +20,7 @@ export type Article = BaseEntity & {
 };
 
 export type Thumbnail = BaseEntity & {
-  source: string;
+  url: string;
   width: number;
   height: number;
 };
