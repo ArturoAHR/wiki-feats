@@ -1,7 +1,7 @@
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityManager } from "@mikro-orm/postgresql";
 import { HttpService } from "@nestjs/axios";
-import { Injectable } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { AxiosResponse } from "axios";
 import { firstValueFrom } from "rxjs";
@@ -44,13 +44,13 @@ export class TranslateService {
         this.httpService.get(`${translateApiUrl}/languages`),
       );
     } catch (e) {
-      throw new Error(
+      throw new InternalServerErrorException(
         `Failed to fetch available languages from LibreTranslate API: ${e.message}`,
       );
     }
 
     if (response.status !== 200) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "Failed to fetch available languages from LibreTranslate API",
       );
     }
@@ -105,13 +105,13 @@ export class TranslateService {
         }),
       );
     } catch (e) {
-      throw new Error(
+      throw new InternalServerErrorException(
         `Failed to fetch available languages from LibreTranslate API: ${e.message}`,
       );
     }
 
     if (response.status !== 200) {
-      throw new Error(
+      throw new InternalServerErrorException(
         "Failed to fetch available languages from LibreTranslate API",
       );
     }
