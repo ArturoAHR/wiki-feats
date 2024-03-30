@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { Article, ArticleType } from "../types/article";
-import { createBaseEntityMock } from "../types/base";
+import { createBaseEntityMock } from "./base";
 
 export const createArticleMock = (): Article => {
   return {

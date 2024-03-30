@@ -31,3 +31,8 @@ export enum ArticleType {
   News = "news",
   OnThisDay = "on-this-day",
 }
+
+export type ArticleFeedParams = {
+  date: string;
+  languageCode: string;
+};

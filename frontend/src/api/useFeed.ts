@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { useAxios } from "../hooks/useAxios";
 import { Article, GetFeedArticlesParams } from "../types/article";
+import { GetAvailableFeedLanguagesResponse } from "../types/language";
 import { PaginatedResponse } from "../types/pagination";
 
 export const useFeed = () => {
@@ -28,5 +29,16 @@ export const useFeed = () => {
     );
   };
 
-  return { useGetFeedQuery };
+  const useGetAvailableFeedLanguages = () => {
+    return useQuery(
+      ["feed-languages"],
+      async (): Promise<GetAvailableFeedLanguagesResponse> => {
+        const response = await axios.get(`${URL}/languages`);
+
+        return response.data;
+      },
+    );
+  };
+
+  return { useGetFeedQuery, useGetAvailableFeedLanguages };
 };
