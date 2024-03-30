@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import classNames from "classnames";
 import { useSanitizeHtml } from "../../hooks/useSanitizeHtml";
-import { Article } from "../../types/article";
+import { Article, articleTypeToTitle } from "../../types/article";
 import WikipediaIcon from "./../../assets/wikipedia-icon.jpg";
 
 import { ImageWithFallback } from "../image-with-fallback/ImageWithFallback";
@@ -36,6 +36,7 @@ export const ArticleCard = ({
       data-testid="article-card"
       className={cardClassName}
       onClick={handleClick}
+      title={articleTypeToTitle[article.articleType]}
     >
       <ImageWithFallback
         src={article?.thumbnail?.url}

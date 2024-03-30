@@ -14,7 +14,7 @@ export type Article = BaseEntity & {
   extractHtml: string;
   context?: string;
   articleUrl: string;
-  articleType: string;
+  articleType: ArticleType;
   wikipediaPageId: number;
   thumbnail: Thumbnail;
 };
@@ -35,4 +35,11 @@ export enum ArticleType {
 export type ArticleFeedParams = {
   date: string;
   languageCode: string;
+};
+
+export const articleTypeToTitle: { [key in ArticleType]: string } = {
+  [ArticleType.Featured]: "Featured",
+  [ArticleType.MostRead]: "Most Read",
+  [ArticleType.News]: "News",
+  [ArticleType.OnThisDay]: "On This Day...",
 };
