@@ -32,10 +32,12 @@ export class WikipediaService {
 
     const articles: WikipediaArticle[] = [];
 
-    articles.push({
-      ...response.data.tfa,
-      articleType: ArticleType.Featured,
-    });
+    if (response.data.tfa) {
+      articles.push({
+        ...response.data.tfa,
+        articleType: ArticleType.Featured,
+      });
+    }
 
     if (response.data.mostread) {
       response.data.mostread.articles.forEach((article) => {
