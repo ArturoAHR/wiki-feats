@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { BaseEntity } from "./entity";
+import { BaseEntity } from "../types/entity";
 
 export const createBaseEntityMock = (): BaseEntity => ({
   id: faker.string.uuid(),
