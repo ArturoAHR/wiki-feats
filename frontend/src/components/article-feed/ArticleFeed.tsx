@@ -38,7 +38,9 @@ export const ArticleFeed = ({
   return (
     <div className={containerClass}>
       <div className="article-feed-articles">
-        {data?.items.map((article) => <ArticleCard article={article} />)}
+        {data?.items.map((article) => (
+          <ArticleCard article={article} key={article.id} />
+        ))}
       </div>
       <Pagination
         className="article-feed-pagination"
