@@ -3,10 +3,35 @@
   border-color: var(--component-border)
 }
 
+.article-card .ant-card-head {
+  border-color: var(--component-border)
+}
+
 .article-card:hover {
   background-color: var(--component-background-hover);
   box-shadow: 0 0 8cap 0 rgba(0, 0, 0, 0.3);
   cursor: pointer;
+}
+
+.article-card:active {
+  background-color: var(--component-background-active);
+}
+
+.article-card-read {
+  background-color: var(--component-read-background);
+  border-color: var(--component-read-border);
+}
+
+.article-card-read .ant-card-head {
+  border-color: var(--component-read-border);
+}
+
+.article-card.article-card-read:hover {
+  background-color: var(--component-read-background-hover);
+}
+
+.article-card.article-card-read:active {
+  background-color: var(--component-read-background-active);
 }
 
 .article-card .ant-card-body {

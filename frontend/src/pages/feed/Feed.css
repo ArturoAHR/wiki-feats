@@ -1,8 +1,9 @@
-.feed-page-content {
+.feed-page {
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-height: 100%;
 }
 
 .feed-header {
