@@ -5,6 +5,7 @@ import { ArticleCard } from "../article-card/ArticleCard";
 
 import { useFeed } from "../../api/useFeed";
 import { Article } from "../../types/article";
+import { StateProvider } from "../state-provider/StateProvider";
 import "./ArticleFeed.css";
 
 export type ArticleFeedProps = {
@@ -21,7 +22,7 @@ export const ArticleFeed = ({
   const [pagination, setPagination] = useState({ page: 1, pageSize: 5 });
 
   const { useGetFeedQuery } = useFeed();
-  const { data, isLoading } = useGetFeedQuery({
+  const { data, isLoading, isError } = useGetFeedQuery({
     date,
     languageCode,
     ...pagination,
@@ -63,7 +64,11 @@ export const ArticleFeed = ({
 
   return (
     <div className={containerClass}>
-      <div className="article-feed-articles">
+      <StateProvider
+        className="article-feed-articles"
+        isLoading={isLoading}
+        isError={isError}
+      >
         {data?.items.map((article) => (
           <ArticleCard
             article={article}
@@ -72,7 +77,7 @@ export const ArticleFeed = ({
             alreadyRead={readArticlesIds.includes(article.wikipediaPageId)}
           />
         ))}
-      </div>
+      </StateProvider>
       <Pagination
         data-testid="article-feed-pagination"
         className="article-feed-pagination"

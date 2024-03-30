@@ -2,12 +2,17 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex: 1;
 }
 
 .article-feed-articles {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
+}
+
+.article-feed-articles.state {
+  display: flex;
 }
 
 .article-feed-pagination {

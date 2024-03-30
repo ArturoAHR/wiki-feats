@@ -13,7 +13,7 @@ export const Feed = () => {
   });
 
   return (
-    <div className="feed-page-content">
+    <div className="feed-page">
       <div className="feed-header">Featured Article Feed</div>
       <div className="feed-section-separator" />
 
