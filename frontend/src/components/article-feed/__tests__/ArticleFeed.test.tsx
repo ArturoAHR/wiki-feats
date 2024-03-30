@@ -14,46 +14,51 @@ vi.mock("../../article-card/ArticleCard", () => ({
   },
 }));
 
-describe("Article Feed", () => {
+describe("Article Feed", async () => {
   const articleMocks = Array.from({ length: 5 }, () => createArticleMock());
 
-  test("should render correctly", () => {
+  const mockUseGetFeedQueryResponse = (
+    response: PaginatedResponse<Article>,
+  ) => {
+    const mockUseGetFeedQuery = vi
+      .fn()
+      .mockReturnValue({ data: response, isLoading: false } as UseQueryResult<
+        PaginatedResponse<Article>,
+        unknown
+      >);
+
     vi.mocked(useFeed).mockReturnValue({
-      useGetFeedQuery: () =>
-        ({
-          data: {
-            items: [] as Article[],
-            meta: {
-              total: 5,
-              page: 1,
-              pageSize: 5,
-              totalPages: 1,
-            },
-          },
-          isLoading: false,
-        }) as UseQueryResult<PaginatedResponse<Article>, unknown>,
+      ...((() => {}) as typeof useFeed)(),
+      useGetFeedQuery: mockUseGetFeedQuery,
+    });
+
+    return mockUseGetFeedQuery;
+  };
+
+  test("should render correctly", () => {
+    mockUseGetFeedQueryResponse({
+      items: [] as Article[],
+      meta: {
+        total: 5,
+        page: 1,
+        pageSize: 5,
+        totalPages: 1,
+      },
     });
 
     render(<ArticleFeed date="2024-03-29" />);
   });
 
   test("should render article cards", () => {
-    vi.mocked(useFeed).mockReturnValue({
-      useGetFeedQuery: () =>
-        ({
-          data: {
-            items: articleMocks,
-            meta: {
-              total: 5,
-              page: 1,
-              pageSize: 5,
-              totalPages: 1,
-            },
-          },
-          isLoading: false,
-        }) as UseQueryResult<PaginatedResponse<Article>, unknown>,
+    mockUseGetFeedQueryResponse({
+      items: articleMocks,
+      meta: {
+        total: 5,
+        page: 1,
+        pageSize: 5,
+        totalPages: 1,
+      },
     });
-
     const { getAllByTestId } = render(<ArticleFeed date="2024-03-29" />);
     expect(getAllByTestId("article-card").length).toBe(5);
   });
@@ -61,21 +66,14 @@ describe("Article Feed", () => {
   test("should go to the next page on page next button click", async () => {
     const date = "2024-03-29";
 
-    const mockUseGetFeedQuery = vi.fn().mockReturnValue({
-      data: {
-        items: articleMocks,
-        meta: {
-          total: 50,
-          page: 1,
-          pageSize: 5,
-          totalPages: 10,
-        },
+    const mockUseGetFeedQuery = mockUseGetFeedQueryResponse({
+      items: articleMocks,
+      meta: {
+        total: 50,
+        page: 1,
+        pageSize: 5,
+        totalPages: 10,
       },
-      isLoading: false,
-    } as UseQueryResult<PaginatedResponse<Article>, unknown>);
-
-    vi.mocked(useFeed).mockReturnValue({
-      useGetFeedQuery: mockUseGetFeedQuery,
     });
 
     const { getByTestId } = render(<ArticleFeed date={date} />);
@@ -95,21 +93,14 @@ describe("Article Feed", () => {
   test("should go to back to the previous page on previous page button click", async () => {
     const date = "2024-03-29";
 
-    const mockUseGetFeedQuery = vi.fn().mockReturnValue({
-      data: {
-        items: articleMocks,
-        meta: {
-          total: 50,
-          page: 1,
-          pageSize: 5,
-          totalPages: 10,
-        },
+    const mockUseGetFeedQuery = mockUseGetFeedQueryResponse({
+      items: articleMocks,
+      meta: {
+        total: 50,
+        page: 1,
+        pageSize: 5,
+        totalPages: 10,
       },
-      isLoading: false,
-    } as UseQueryResult<PaginatedResponse<Article>, unknown>);
-
-    vi.mocked(useFeed).mockReturnValue({
-      useGetFeedQuery: mockUseGetFeedQuery,
     });
 
     const { getByTestId } = render(<ArticleFeed date={date} />);
@@ -132,21 +123,14 @@ describe("Article Feed", () => {
   test("should change page size on page size change", async () => {
     const date = "2024-03-29";
 
-    const mockUseGetFeedQuery = vi.fn().mockReturnValue({
-      data: {
-        items: articleMocks,
-        meta: {
-          total: 50,
-          page: 1,
-          pageSize: 5,
-          totalPages: 10,
-        },
+    const mockUseGetFeedQuery = mockUseGetFeedQueryResponse({
+      items: articleMocks,
+      meta: {
+        total: 50,
+        page: 1,
+        pageSize: 5,
+        totalPages: 10,
       },
-      isLoading: false,
-    } as UseQueryResult<PaginatedResponse<Article>, unknown>);
-
-    vi.mocked(useFeed).mockReturnValue({
-      useGetFeedQuery: mockUseGetFeedQuery,
     });
 
     const { getByText } = render(<ArticleFeed date={date} />);
