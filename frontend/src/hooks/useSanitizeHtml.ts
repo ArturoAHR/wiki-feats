@@ -2,7 +2,7 @@ import sanitizeHtml from "sanitize-html";
 
 export const useSanitizeHtml = () => {
   const defaultOptions = {
-    allowedTags: ["b", "i", "em", "strong", "a"],
+    allowedTags: ["b", "i", "em", "strong"],
     allowedAttributes: {
       a: ["href"],
     },
