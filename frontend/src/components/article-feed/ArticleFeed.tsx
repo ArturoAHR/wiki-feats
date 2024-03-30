@@ -28,7 +28,12 @@ export const ArticleFeed = ({
     ...pagination,
   });
 
+  const [totalItems, setTotalItems] = useState<number>(1);
   const [readArticlesIds, setReadArticlesIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (data?.meta?.total) setTotalItems(data.meta.total);
+  }, [data?.meta?.total]);
 
   useEffect(() => {
     setReadArticlesIds(
@@ -87,7 +92,7 @@ export const ArticleFeed = ({
         pageSize={pagination.pageSize}
         defaultPageSize={5}
         pageSizeOptions={[5, 15, 30]}
-        total={data?.meta.total ?? 0}
+        total={totalItems}
         onChange={handlePageChange}
         onShowSizeChange={handlePageSizeChange}
         disabled={isLoading}
