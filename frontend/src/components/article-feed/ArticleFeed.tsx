@@ -26,9 +26,9 @@ export const ArticleFeed = ({
     ...pagination,
   });
 
-  const handlePageChange = (page: number) =>
+  const handlePageChange = (page: number) => {
     setPagination((previousPagination) => ({ ...previousPagination, page }));
-
+  };
   const handlePageSizeChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
   };
@@ -38,9 +38,12 @@ export const ArticleFeed = ({
   return (
     <div className={containerClass}>
       <div className="article-feed-articles">
-        {data?.items.map((article) => <ArticleCard article={article} />)}
+        {data?.items.map((article) => (
+          <ArticleCard article={article} key={article.id} />
+        ))}
       </div>
       <Pagination
+        data-testid="article-feed-pagination"
         className="article-feed-pagination"
         showSizeChanger
         simple
