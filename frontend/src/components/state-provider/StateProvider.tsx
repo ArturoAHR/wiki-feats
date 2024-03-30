@@ -25,13 +25,15 @@ export const StateProvider = ({
     return (
       <State
         className={stateClassName}
-        icon={<CloseCircleOutlined />}
+        icon={<CloseCircleOutlined data-testid="error-state-icon" />}
         message="Error"
       />
     );
 
   if (isLoading)
-    return <State className={stateClassName} icon={<LoadingOutlined />} />;
+    return (
+      <State icon={<LoadingOutlined data-testid="loading-state-icon" />} />
+    );
 
   return <div className={stateClassName}>{children}</div>;
 };
