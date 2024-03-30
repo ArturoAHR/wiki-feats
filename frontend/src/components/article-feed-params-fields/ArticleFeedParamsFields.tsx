@@ -42,8 +42,9 @@ export const ArticleFeedParamsFields = ({
       <div className="article-feed-params-fields-date">
         <div className="article-feed-params-fields-date-label">Date:</div>
         <DatePicker
-          size="large"
           className="article-feed-params-fields-date-picker"
+          data-testid="article-feed-params-fields-date-picker"
+          size="large"
           defaultValue={dayjs(params.date)}
           onChange={handleDateChange}
           disabledDate={(date) => {
@@ -56,8 +57,9 @@ export const ArticleFeedParamsFields = ({
           Language:
         </div>
         <Select
-          size="large"
           className="article-feed-params-fields-language-select"
+          data-testid="article-feed-params-fields-language-select"
+          size="large"
           defaultValue={params.languageCode}
           options={languageOptions}
           onChange={handleLanguageChange}
