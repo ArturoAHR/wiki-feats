@@ -59,4 +59,18 @@ describe("Article Card", () => {
 
     expect(articleCard).toHaveClass("article-card-read");
   });
+
+  test("should call onClick when article card is clicked", () => {
+    const onClick = vi.fn();
+
+    const { getByTestId } = render(
+      <ArticleCard article={articleMock} onClick={onClick} />,
+    );
+
+    const articleCard = getByTestId("article-card");
+
+    fireEvent.click(articleCard);
+
+    expect(onClick).toHaveBeenCalledWith(articleMock);
+  });
 });

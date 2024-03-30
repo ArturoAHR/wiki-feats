@@ -44,7 +44,7 @@ export const ArticleCard = ({
         fallback={WikipediaIcon}
         className="article-card-image"
       />
-      <div className="article-card-separator"></div>
+      <div className="article-card-separator" />
       <div className="article-card-title">{article.title}</div>
       {article?.context && (
         <div
