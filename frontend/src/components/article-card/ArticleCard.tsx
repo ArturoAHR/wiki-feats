@@ -29,7 +29,11 @@ export const ArticleCard = ({
   });
 
   return (
-    <Card className={cardClassName} key={article.id} onClick={handleClick}>
+    <Card
+      data-testid="article-card"
+      className={cardClassName}
+      onClick={handleClick}
+    >
       <ImageWithFallback
         src={article?.thumbnail?.url}
         alt={article.title}

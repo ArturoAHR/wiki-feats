@@ -24,3 +24,10 @@ export type Thumbnail = BaseEntity & {
   width: number;
   height: number;
 };
+
+export enum ArticleType {
+  Featured = "featured",
+  MostRead = "most-read",
+  News = "news",
+  OnThisDay = "on-this-day",
+}

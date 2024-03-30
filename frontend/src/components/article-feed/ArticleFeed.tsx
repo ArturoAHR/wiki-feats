@@ -26,9 +26,9 @@ export const ArticleFeed = ({
     ...pagination,
   });
 
-  const handlePageChange = (page: number) =>
+  const handlePageChange = (page: number) => {
     setPagination((previousPagination) => ({ ...previousPagination, page }));
-
+  };
   const handlePageSizeChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
   };
@@ -43,6 +43,7 @@ export const ArticleFeed = ({
         ))}
       </div>
       <Pagination
+        data-testid="article-feed-pagination"
         className="article-feed-pagination"
         showSizeChanger
         simple
