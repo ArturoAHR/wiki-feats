@@ -1,13 +1,15 @@
+
 .layout {
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .layout > .content-container {
   display: flex;
-  flex: 1;
+  flex: 1; 
   justify-content: center;
+  overflow-y: auto;
 }
 
 .layout > .content-container > .content {
