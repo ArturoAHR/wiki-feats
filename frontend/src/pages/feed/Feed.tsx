@@ -16,8 +16,9 @@ export const Feed = () => {
     <div className="feed-page-content">
       <div className="feed-header">Featured Article Feed</div>
       <div className="feed-section-separator" />
+
       <ArticleFeedParamsFields params={params} onParamsChange={setParams} />
-      <div className="feed-section-separator" />
+
       <ArticleFeed date={params.date} languageCode={params.languageCode} />
     </div>
   );

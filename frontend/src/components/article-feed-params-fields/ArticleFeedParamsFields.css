@@ -1,0 +1,16 @@
+.article-feed-params-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 8px 0 16px;
+}
+
+.article-feed-params-fields-date-picker, .article-feed-params-fields-language-select {
+  width: 100%
+} 
+
+.article-feed-params-fields-date-label, .article-feed-params-fields-language-label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}

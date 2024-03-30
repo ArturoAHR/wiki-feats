@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import { useFeed } from "../../api/useFeed";
 import { ArticleFeedParams } from "../../types/article";
 
+import "./ArticleFeedParamsFields.css";
+
 export type ArticleFeedParamsProps = {
   params: ArticleFeedParams;
   onParamsChange: (filter: ArticleFeedParams) => void;
@@ -40,6 +42,7 @@ export const ArticleFeedParamsFields = ({
       <div className="article-feed-params-fields-date">
         <div className="article-feed-params-fields-date-label">Date:</div>
         <DatePicker
+          size="large"
           className="article-feed-params-fields-date-picker"
           defaultValue={dayjs(params.date)}
           onChange={handleDateChange}
@@ -53,6 +56,7 @@ export const ArticleFeedParamsFields = ({
           Language:
         </div>
         <Select
+          size="large"
           className="article-feed-params-fields-language-select"
           defaultValue={params.languageCode}
           options={languageOptions}
