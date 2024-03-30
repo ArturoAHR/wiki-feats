@@ -9,6 +9,23 @@
   cursor: pointer;
 }
 
+.article-card:active {
+  background-color: var(--component-background-active);
+}
+
+.article-card-read {
+  background-color: var(--component-read-background);
+  border-color: var(--component-read-border);
+}
+
+.article-card.article-card-read:hover {
+  background-color: var(--component-read-background-hover);
+}
+
+.article-card.article-card-read:active {
+  background-color: var(--component-read-background-active);
+}
+
 .article-card .ant-card-body {
   display: flex; 
   flex-direction: column;

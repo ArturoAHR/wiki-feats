@@ -1,9 +1,10 @@
 import { Pagination } from "antd";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArticleCard } from "../article-card/ArticleCard";
 
 import { useFeed } from "../../api/useFeed";
+import { Article } from "../../types/article";
 import "./ArticleFeed.css";
 
 export type ArticleFeedProps = {
@@ -26,11 +27,36 @@ export const ArticleFeed = ({
     ...pagination,
   });
 
+  const [readArticlesIds, setReadArticlesIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    setReadArticlesIds(
+      JSON.parse(window.localStorage.getItem("readArticles") || "[]"),
+    );
+  }, []);
+
   const handlePageChange = (page: number) => {
     setPagination((previousPagination) => ({ ...previousPagination, page }));
   };
   const handlePageSizeChange = (page: number, pageSize: number) => {
     setPagination({ page, pageSize });
+  };
+
+  const handleArticleClick = (article: Article) => {
+    const articleWikipediaPageId = article.wikipediaPageId;
+
+    window.localStorage.setItem(
+      "readArticles",
+      JSON.stringify([...readArticlesIds, articleWikipediaPageId]),
+    );
+
+    setReadArticlesIds((previousReadArticlesIds) => {
+      if (previousReadArticlesIds?.includes(articleWikipediaPageId)) {
+        return previousReadArticlesIds;
+      }
+
+      return [...previousReadArticlesIds, articleWikipediaPageId];
+    });
   };
 
   const containerClass = classNames("article-feed", className);
@@ -39,7 +65,12 @@ export const ArticleFeed = ({
     <div className={containerClass}>
       <div className="article-feed-articles">
         {data?.items.map((article) => (
-          <ArticleCard article={article} key={article.id} />
+          <ArticleCard
+            article={article}
+            key={article.id}
+            onClick={handleArticleClick}
+            alreadyRead={readArticlesIds.includes(article.wikipediaPageId)}
+          />
         ))}
       </div>
       <Pagination

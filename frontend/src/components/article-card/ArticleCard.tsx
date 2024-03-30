@@ -10,18 +10,21 @@ import "./ArticleCard.css";
 export type ArticleCardProps = {
   article: Article;
   alreadyRead?: boolean;
+  onClick?: (article: Article) => void;
   className?: string;
 };
 
 export const ArticleCard = ({
   article,
   alreadyRead,
+  onClick,
   className,
 }: ArticleCardProps) => {
   const { sanitize } = useSanitizeHtml();
 
   const handleClick = () => {
     window.open(article.articleUrl, "_blank");
+    if (onClick) onClick(article);
   };
 
   const cardClassName = classNames("article-card", className, {
