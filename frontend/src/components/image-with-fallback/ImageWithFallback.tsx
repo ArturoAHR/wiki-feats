@@ -14,7 +14,7 @@ export const ImageWithFallback = ({
   return (
     <img
       className={className}
-      src={src ?? fallback}
+      src={src || fallback}
       alt={alt}
       onError={({ currentTarget }) => {
         currentTarget.onerror = null;
