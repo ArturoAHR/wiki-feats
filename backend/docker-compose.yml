@@ -7,7 +7,7 @@ services:
       - "5000:5000"
     tty: true
     volumes:
-      - libretranslate_models:/app/argos-translate/models
+      - libretranslate_models:/home/libretranslate/.local:rw
     
     networks:
       - wiki-feats-network
