@@ -16,8 +16,6 @@ services:
     container_name: wiki-feats-db
     image: postgres:latest
     restart: unless-stopped
-    env_file: 
-      - .env.sample
     environment:
       - POSTGRES_DB=${DATABASE_NAME}
       - POSTGRES_USER=${DATABASE_USER}
