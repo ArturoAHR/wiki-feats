@@ -1,0 +1,18 @@
+
+.layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout > .content-container {
+  display: flex;
+  flex: 1; 
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.layout > .content-container > .content {
+  width: 100%;
+  max-width: var(--contents-main-width);
+}

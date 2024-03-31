@@ -1,0 +1,83 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  --primary: #8d6e63;
+  --secondary: #795548;
+  --auxiliar: #6d4c41;
+
+  --background: #d7ccc8;
+  --component-background: #f0f0f0;;
+  --component-background-secondary: #9e9e9e;;
+  --component-background-hover: #e0e0e0;
+  --component-background-active: #d0d0d0;
+  --component-border: #bcbcbc;
+  --component-read-background: #d1cde3;
+  --component-read-background-hover: #c1b9d3;
+  --component-read-background-active: #b1a9c3;
+  --component-read-border: #adaaca;
+
+  --text-primary: #212121;
+  --text-secondary: #757575;
+
+  --contents-main-width: 1225px;
+  --mobile-width: 768px;
+
+  font-family:  Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-primary);
+  background-color: var(--background);
+
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;  
+}
+
+/* Scrollbar style */
+/* Firefox Compatibility */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #595959 #fafafa;
+}
+
+/* General */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #595959;
+  border: 1px solid #fafafa;
+  border-radius: 6px;
+}
