@@ -2,13 +2,22 @@
 
 Web Application to view Wikipedia's Featured Contents powered by React.js.
 
-## Installation
+
+## Getting Started
+
+First install the dependencies:
 
 ```bash
 $ pnpm install
 ```
 
-## Running the app
+Afterwards copy the .env.sample into an .env file and fill out your own environment values.
+
+```bash
+$ cp .env.sample .env
+```
+
+Run the app in development mode with:
 
 ```bash
 $ pnpm run dev 
