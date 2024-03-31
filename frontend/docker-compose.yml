@@ -1,0 +1,16 @@
+services:
+  webapp:
+    container_name: wiki-feats-webapp
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - wiki-feats-network
+    depends_on:
+      - api
+
+networks:
+  wiki-feats-network:
+    driver: bridge
