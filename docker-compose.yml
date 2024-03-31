@@ -1,0 +1,59 @@
+services:
+  libre-translate:
+    container_name: libre-translate
+    image: libretranslate/libretranslate:latest
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    tty: true
+    volumes:
+      - libretranslate_models:/app/argos-translate/models
+    
+    networks:
+      - wiki-feats-network
+      
+  database:
+    container_name: wiki-feats-db
+    image: postgres:latest
+    restart: unless-stopped
+    env_file: 
+      - ./backend/.env.sample
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - PGDAATA=/var/lib/postgresql/data
+    networks:
+      - wiki-feats-network
+  
+  api:
+    container_name: wiki-feats-api
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - wiki-feats-network
+    depends_on:
+      - database
+
+  webapp:
+    container_name: wiki-feats-webapp
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - wiki-feats-network
+    depends_on:
+      - api
+      
+volumes:
+  libretranslate_models:
+    name: libretranslate_models
+
+networks:
+  wiki-feats-network:
+    driver: bridge
