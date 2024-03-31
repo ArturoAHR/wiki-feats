@@ -1,0 +1,11 @@
+.git
+coverage
+dist
+node_modules
+docker-compose.yml
+Dockerfile
+*.development
+.gitignore
+.eslintrc.js
+README.md
+.env
