@@ -12,7 +12,7 @@ async function bootstrap() {
   const environment = configService.get("ENVIRONMENT");
 
   if (environment === "development") {
-    const document = SwaggerModule.createDocument(app, swaggerConfig);
+    const document = SwaggerModule.createDocument(app, swaggerConfig());
     SwaggerModule.setup("api", app, document);
   }
 

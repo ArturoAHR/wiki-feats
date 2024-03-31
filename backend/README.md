@@ -49,3 +49,19 @@ $ pnpm run test:e2e
 # test coverage
 $ pnpm run test:cov
 ```
+
+## Orm Commands
+
+```bash
+# create migration
+$ pnpm run migration:create {name}
+
+# run migration
+$ pnpm run migration:up
+
+# revert one migration
+$ pnpm run migration:down
+
+# drop the database
+$ pnpm run schema:drop
+```

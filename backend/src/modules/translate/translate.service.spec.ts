@@ -3,6 +3,7 @@ import { getRepositoryToken } from "@mikro-orm/nestjs";
 import { EntityManager } from "@mikro-orm/postgresql";
 import { HttpService } from "@nestjs/axios";
 import { ConfigService } from "@nestjs/config";
+import { SchedulerRegistry } from "@nestjs/schedule";
 import { Test, TestingModule } from "@nestjs/testing";
 import { BaseRepository } from "../../common/database/base.repository";
 import { Language } from "../../database/entities/language.entity";
@@ -28,6 +29,7 @@ describe("TranslateService", () => {
   let mockLanguageRepository;
   let mockEntityManager;
   let mockConfigService;
+  let mockSchedulerRegistry;
 
   const mockUrl = "https://libre-translate.com";
   const mockGetAvailableLanguagesResponse =
@@ -39,12 +41,16 @@ describe("TranslateService", () => {
     });
     mockLanguageRepository = createMock<BaseRepository<Language>>({
       findOneOrFail: jest.fn(),
+      findAll: jest.fn().mockResolvedValue([]),
     });
     mockEntityManager = createMock<EntityManager>({
       fork: jest.fn(),
     });
     mockConfigService = createMock<ConfigService>({
       get: jest.fn().mockReturnValue(mockUrl),
+    });
+    mockSchedulerRegistry = createMock<SchedulerRegistry>({
+      deleteCronJob: jest.fn(),
     });
 
     const module: TestingModule = await Test.createTestingModule({
@@ -57,6 +63,7 @@ describe("TranslateService", () => {
         },
         { provide: EntityManager, useValue: mockEntityManager },
         { provide: ConfigService, useValue: mockConfigService },
+        { provide: SchedulerRegistry, useValue: mockSchedulerRegistry },
       ],
     }).compile();
 
@@ -178,5 +185,37 @@ describe("TranslateService", () => {
     const result = await service.getSupportedLanguages();
 
     expect(result).toEqual(languages);
+  });
+
+  it("should check if the translation api is available", () => {
+    mockHttpService.get = jest.fn();
+
+    expect(service.isTranslationApiAvailable()).resolves.toBe(true);
+  });
+
+  it("should check if the translation api is unavailable", async () => {
+    mockHttpService.get = jest.fn().mockRejectedValue(new Error("error"));
+
+    expect(service.isTranslationApiAvailable()).resolves.toBe(false);
+  });
+
+  it("should stop cron job if there is more than one language imported", async () => {
+    const response = createAxiosResponseMock([
+      { code: "en", name: "English", targets: ["fr", "cd", "dc"] },
+      { code: "fr", name: "French", targets: ["ab", "cd", "dc"] },
+      mockGetAvailableLanguagesResponse,
+    ]);
+
+    mockHttpService.get.mockResolvedValue(response);
+    mockEntityManager.fork.mockReturnValue(mockEntityManager);
+    mockEntityManager.getRepository.mockReturnValue(mockLanguageRepository);
+    mockLanguageRepository.count.mockResolvedValue(2);
+
+    await service.checkIfTranslationLanguagesAreImported();
+
+    expect(mockEntityManager.fork).toHaveBeenCalled();
+    expect(mockLanguageRepository.create).toHaveBeenCalled();
+    expect(mockEntityManager.flush).toHaveBeenCalled();
+    expect(mockSchedulerRegistry.deleteCronJob).toHaveBeenCalled();
   });
 });
