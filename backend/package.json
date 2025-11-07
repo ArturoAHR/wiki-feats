@@ -71,8 +71,8 @@
   "mikro-orm": {
     "useTsNode": true,
     "configPaths": [
-      "./src/config/mikro-orm.config.ts",
-      "./dist/config/mikro-orm.config.js"
+      "./src/config/orm/mikro-orm-cli.config.ts",
+      "./dist/config/orm/mikro-orm-cli.config.js"
     ]
   },
   "jest": {

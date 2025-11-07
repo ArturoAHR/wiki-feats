@@ -1,6 +1,6 @@
 import { MikroOrmModule } from "@mikro-orm/nestjs";
 import { Global, Module } from "@nestjs/common";
-import mikroOrmConfig from "../../config/mikro-orm.config";
+import { mikroOrmConfig } from "../../config/mikro-orm.config";
 import { OrmService } from "./orm.service";
 
 @Global()
